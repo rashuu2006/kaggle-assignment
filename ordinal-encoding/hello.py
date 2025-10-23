@@ -4,11 +4,9 @@ df = pd.Dataframe(data=d)
 df.head(10)
 df['size'].unique()
 sizes=['Small','Medium','Large']
-from sklearn.preprocessing import OrdinalEncoder
-enc = OrdinalEncoder(categories=[sizes])
-enc.fit_transform(df[['size']])
-df.head()
-df['size'] = enc.fit_transform(df[['size']])
-df.head()
-df.head(10)
+size_category = pd.CategoricalDtype(categories=sizes, ordered=True)
+df.['size'] = df['size'].astype(size_category)
+df['size'].cat.codes
+print(df.head(10))
+
 
