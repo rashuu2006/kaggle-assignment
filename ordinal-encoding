@@ -1,0 +1,20 @@
+import pandas as pd 
+d = {'sales': [100000,222000,1000000,522000,111111,222222,1111111,20000,75000,90000,1000000,10000], 'city': ['Tampa','Tampa','Orlando','Jacksonville','Miami','Jacksonville','Miami','Miami','Orlando','Orlando','Orlando','Orlando'], 'size': ['Small', 'Medium','Large','Large','Small','Medium','Large','Small','Medium','Medium','Medium','Small',]}
+number_of_rows = len(d['sales'])
+data[]
+for i in range(number_of_rows):
+    row ={'sales': d['sales'][i], 'city': d['city'][i], 'size': d['size'][i]}
+    data.append(row)
+    size_order = ['Small','Medium','Large']
+    size_map ={}
+for index, size in enumerate(size_order):
+        size_map[size] = index
+
+for row in data 
+    row['size'] = size_map[row['size']]
+print(data,format ("sales","city","size"))
+for row in data:
+    print (f"{row['sales']}, {row['city']}, {row['size']}")
+rows_to print = (len(data))
+print (f"Total rows: {rows_to print}")
+print (format (row['sales'], row['city'], row['size']))
