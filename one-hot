@@ -1,0 +1,12 @@
+import pandas as pd
+d = {'sales': [100000,222000,1000000,522000,111111,222222,1111111,20000,75000,90000,1000000,10000],
+'city': ['Tampa','Tampa','Orlando','Jacksonville','Miami','Jacksonville','Miami','Miami','Orlando','Orlando','Orlando','Orlando'],
+'size': ['Small', 'Medium','Large','Large','Small','Medium','Large','Small','Medium','Medium','Medium','Small',]}
+df = pd.DataFrame(data=d)
+df.head()
+df['city'].unique()
+cities=['Tampa','Miami','Orlando','Jacksonville']
+print(original_cities := df['city'].copy())
+print(df.head())
+df = pd.get_dummies(df, columns=['city'])
+print(df.head(10))
