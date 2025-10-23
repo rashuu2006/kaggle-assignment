@@ -1,0 +1,123 @@
+import pandas as pd
+import numpy as np
+
+data = {'index':[0,1,2,3,4,5,6,7,8,9,10,11],
+        'sales': [100000,222000,1000000,522000,111111,222222,1111111,20000,75000,90000,1000000,10000],
+        'city': ['Tampa','Tampa','Orlando','Jacksonville','nan','Jacksonville','Miami','Miami','Orlando','Orlando','nan','Orlando'],
+        'rating':[5,4,'nan',3,5,4,'nan',3,5,4,5,2]}
+missing_values = ['missing']
+for column in data 
+    new_data = []
+    for item in data[column]:
+        if item == 'nan':
+            new_data.append('missing')
+        else:
+            new_data.append(item)
+    data[column] = new_data
+else: 
+    new_data.append(item)
+    data[column] = new_data
+
+print(data)
+
+columns_with_missing = []
+missing_count_per_column = {}
+
+for column in data.keys():
+    missing_count = 0
+    for value in data[column]:
+        if value == 'missing':
+            missing_count += 1
+    
+    if missing_count > 0:
+        columns_with_missing.append(column)
+        missing_count_per_column[column] = missing_count
+print(f"Columns with missing values: {columns_with_missing}")
+print("Missing value count per column before imputation:")      
+for column, count in missing_count_per_column.items():
+    print(f"{column}    {count}")
+
+number_columns_to_impute = []
+categorical_columns_to_impute = []
+
+def is_column_numeric(column):
+    for value in column:
+        if value != 'missing' and not isinstance(value, (int, float)):
+            return False
+        return True
+for column in columns_with_missing:
+    
+    if is_column_numeric(data[column]):
+        number_columns_to_impute.append(column)
+    else:
+        categorical_columns_to_impute.append(column)
+  def manual_median(series):
+    
+    clean_data = [x for x in series if x != 'missing']
+    
+    
+    clean_data.sort()
+    n = len(clean_data)
+    
+    if n == 0:
+        return 'missing'
+    elif n % 2 == 1:
+       
+        return clean_data[n // 2]
+    else:
+        
+        mid1 = clean_data[n // 2 - 1]
+        mid2 = clean_data[n // 2]
+        return (mid1 + mid2) / 2.0
+for column in number_columns_to_impute:
+    missing_count_before = missing_count_per_column.get(column, 0)
+    median_value = manual_median(data[column]) 
+    new_column_data = []
+    for val in data[column]:
+        if val == 'missing':
+            new_column_data.append(median_value)
+        else:
+            new_column_data.append(val)
+    data[column] = new_column_data
+    
+    print(f"Imputed {missing_count_before} missing values in column '{column}' with Median: {median_value:.2f}")
+def manual_mode(series):
+    
+    clean_data = [x for x in series if x != 'missing']
+    
+
+    counts = {}
+    for item in clean_data:
+        counts[item] = counts.get(item, 0) + 1
+        
+    if not counts:
+        return 'missing'
+    
+
+    mode_val = max(counts, key=counts.get)
+    return mode_val
+for column in categorical_columns_to_impute:
+    missing_count_before = missing_count_per_column.get(column, 0)
+    mode_value = manual_mode(data[column]) 
+    new_column_data = []
+    for val in data[column]:
+        if val == 'missing':
+            new_column_data.append(mode_value)
+        else:
+            new_column_data.append(val)
+    data[column] = new_column_data
+    
+    print(f"Imputed {missing_count_before} missing values in column '{column}' with Mode: '{mode_value}'")
+
+    total_missing_Count_after =0
+    for column in data.keys():
+        for val in data[column]:
+            if val == 'missing':
+                total_missing_Count_after += 1
+print(f"Total missing values after processing: {total_missing_Count_after}")
+print("{:<5} {:<10} {:<15} {:<15} {:<10}".format('Index', 'Sales', 'City', 'Rating'))
+print("-" * 50)
+
+for i in range(len(data['index'])):
+    print("{:<5} {:<10} {:<15} {:<15} {:<10}".format(data['index'][i], data['sales'][i], data['city'][i], data['rating'][i]))   
+    data(['index'][i], data['sales'][i], data['city'][i], data['rating'][i])
